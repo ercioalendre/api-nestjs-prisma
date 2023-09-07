@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @db.Uuid
+  fullName        String    @db.VarChar(64)
+  nickname        String?   @db.VarChar(32)
+  email           String    @db.VarChar(64)
+  phone           String    @db.VarChar(20)
+  password        String    @db.VarChar(64)
+  token           String    @db.VarChar
+  status          Boolean   @db.Boolean
+  createdAt       DateTime  @db.Timestamp(6)
+  createdBy       String?   @db.Uuid
+  updatedAt       DateTime? @db.Timestamp(6)
+  updatedBy       String?   @db.Uuid
+  statusChangedAt DateTime? @db.Timestamp(6)
+  statusChangedBy String?   @db.Uuid
+
+  userRelatedToCreatedBy                User?     @relation("userRelatedToCreatedBy", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userRelatedToUpdatedBy                User?     @relation("userRelatedToUpdatedBy", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userRelatedToStatusChangedBy          User?     @relation("userRelatedToStatusChangedBy", fields: [statusChangedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userRelatedToCreatedByInUser          User[]    @relation("userRelatedToCreatedBy")
+  userRelatedToUpdatedByInUser          User[]    @relation("userRelatedToUpdatedBy")
+  userRelatedToStatusChangedByInUser    User[]    @relation("userRelatedToStatusChangedBy")
+  userRelatedToCreatedByInAddress       Address[] @relation("userRelatedToCreatedBy")
+  userRelatedToUpdatedByInAddress       Address[] @relation("userRelatedToUpdatedBy")
+  userRelatedToStatusChangedByInAddress Address[] @relation("userRelatedToStatusChangedBy")
+  userRelatedToUserIdInAddress          Address[] @relation("userRelatedToUserId")
+}
+
+model Address {
+  id              String    @id @db.Uuid
+  userId          String    @db.Uuid
+  streetOne       String    @db.VarChar
+  streetTwo       String?   @db.VarChar
+  neighborhood    String?   @db.VarChar
+  city            String    @db.VarChar
+  state           String    @db.VarChar
+  postalCode      String    @db.VarChar
+  country         String    @db.VarChar
+  addressType     String    @db.VarChar
+  status          Boolean   @db.Boolean
+  createdAt       DateTime  @db.Timestamp(6)
+  createdBy       String    @db.Uuid
+  updatedAt       DateTime? @db.Timestamp(6)
+  updatedBy       String?   @db.Uuid
+  statusChangedAt DateTime? @db.Timestamp(6)
+  statusChangedBy String?   @db.Uuid
+
+  userRelatedToCreatedBy       User  @relation("userRelatedToCreatedBy", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userRelatedToUpdatedBy       User? @relation("userRelatedToUpdatedBy", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userRelatedToStatusChangedBy User? @relation("userRelatedToStatusChangedBy", fields: [statusChangedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userRelatedToUserId          User  @relation("userRelatedToUserId", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
