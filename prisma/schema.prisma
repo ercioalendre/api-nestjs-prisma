@@ -14,7 +14,7 @@ model User {
   email             String    @unique @db.VarChar(64)
   phone             String    @unique @db.VarChar(20)
   password          String    @db.VarChar(64)
-  token             String    @unique @db.VarChar
+  token             String?   @unique @db.VarChar
   isActive          Boolean   @db.Boolean
   createdAt         DateTime  @db.Timestamp(6)
   createdBy         String?   @db.Uuid
