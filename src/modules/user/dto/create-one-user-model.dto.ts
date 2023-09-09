@@ -1,6 +1,6 @@
 import { UserBaseInputDto } from './user-base-input.dto';
 
-export abstract class CreateUserModelDto extends UserBaseInputDto {
+export abstract class CreateOneUserModelDto extends UserBaseInputDto {
   public readonly id: string;
 
   public readonly isActive: boolean;

@@ -8,38 +8,46 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserInputDto } from './dto/create-user-input.dto';
-import { UpdateUserInputDto } from './dto/update-user-input.dto';
+import { CreateOneUserInputDto } from './dto/create-one-user-input.dto';
+import { UpdateOneUserInputDto } from './dto/update-one-user-input.dto';
+import { UpdateOneUserOutputDto } from './dto/update-one-user-output.dto';
+import { GetManyUserOutputDto } from './dto/get-many-user-output.dto';
+import { GetOneUserOutputDto } from './dto/get-one-user-output.dto';
+import { DeleteOneUserOutputDto } from './dto/delete-one-user-output.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('create-one')
-  public async createOne(@Body() createUserInputDto: CreateUserInputDto) {
+  public async createOne(@Body() createUserInputDto: CreateOneUserInputDto) {
     return await this.userService.createOne(createUserInputDto);
   }
 
-  // @Get()
-  // public async findAll() {
-  //   return this.userService.findAll();
-  // }
+  @Get('get-many')
+  public async getMany(): Promise<GetManyUserOutputDto[]> {
+    return await this.userService.getAll();
+  }
 
-  // @Get(':id')
-  // public async findOne(@Param('id') id: string) {
-  //   return this.userService.findOne(+id);
-  // }
+  @Get('get-one/:id')
+  public async getOne(
+    @Param('id') id: string,
+  ): Promise<GetOneUserOutputDto | null> {
+    return await this.userService.getOneById(id);
+  }
 
-  // @Patch(':id')
-  // public async update(
-  //   @Param('id') id: string,
-  //   @Body() updateUserDto: UpdateUserInputDto,
-  // ) {
-  //   return this.userService.update(+id, updateUserDto);
-  // }
+  @Patch('update-one/:id')
+  public async updateOne(
+    @Param('id') id: string,
+    @Body() body: UpdateOneUserInputDto,
+  ): Promise<UpdateOneUserOutputDto> {
+    return this.userService.updateOne(id, body);
+  }
 
-  // @Delete(':id')
-  // public async remove(@Param('id') id: string) {
-  //   return this.userService.remove(+id);
-  // }
+  @Delete('delete-one/:id')
+  public async deleteOne(
+    @Param('id') id: string,
+  ): Promise<DeleteOneUserOutputDto> {
+    return await this.userService.deleteOneById(id);
+  }
 }

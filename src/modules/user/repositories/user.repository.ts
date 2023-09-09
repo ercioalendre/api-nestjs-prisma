@@ -1,28 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateUserOutputDto } from '../dto/create-user-output.dto';
-import { CreateUserModelDto } from '../dto/create-user-model.dto';
-import { UpdateUserOutputDto } from '../dto/update-user-output.dto';
-import { UpdateUserModelDto } from '../dto/update-user-model.dto';
-import { DeleteUserOutputDto } from '../dto/delete-user-output.dto';
+import { CreateOneUserOutputDto } from '../dto/create-one-user-output.dto';
+import { CreateOneUserModelDto } from '../dto/create-one-user-model.dto';
+import { UpdateOneUserOutputDto } from '../dto/update-one-user-output.dto';
+import { UpdateOneUserModelDto } from '../dto/update-one-user-model.dto';
+import { DeleteOneUserOutputDto } from '../dto/delete-one-user-output.dto';
 
 @Injectable()
 export class UserRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   public async createOne(
-    createUserModelDto: CreateUserModelDto,
-  ): Promise<CreateUserOutputDto> {
+    createUserModelDto: CreateOneUserModelDto,
+  ): Promise<CreateOneUserOutputDto> {
     return this.prismaService.user.create({
       data: createUserModelDto,
     });
   }
 
-  public async getAll(): Promise<CreateUserOutputDto[]> {
+  public async getAll(): Promise<CreateOneUserOutputDto[]> {
     return this.prismaService.user.findMany();
   }
 
-  public async getOne(id: string): Promise<CreateUserOutputDto> {
+  public async getOneById(id: string): Promise<CreateOneUserOutputDto> {
     return this.prismaService.user.findUnique({
       where: {
         id,
@@ -32,8 +32,8 @@ export class UserRepository {
 
   public async updateOne(
     id: string,
-    updateUserModelDto: UpdateUserModelDto,
-  ): Promise<UpdateUserOutputDto> {
+    updateUserModelDto: UpdateOneUserModelDto,
+  ): Promise<UpdateOneUserOutputDto> {
     return await this.prismaService.user.update({
       where: {
         id,
@@ -42,7 +42,7 @@ export class UserRepository {
     });
   }
 
-  public async deleteOne(id: string): Promise<DeleteUserOutputDto> {
+  public async deleteOneById(id: string): Promise<DeleteOneUserOutputDto> {
     return await this.prismaService.user.delete({
       where: {
         id,
