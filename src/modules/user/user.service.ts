@@ -50,6 +50,18 @@ export class UserService {
     return user;
   }
 
+  public async getOneByEmail(email: string): Promise<GetOneUserOutputDto> {
+    const user = await this.userRepository.getOneByEmail(email);
+
+    if (!user) {
+      throw new NotFoundException(
+        StaticErrors.THE_USER_YOU_ARE_LOOKING_FOR_RELATED_TO_THE_GIVEN_EMAIL_DOES_NOT_EXIST,
+      );
+    }
+
+    return user;
+  }
+
   public async updateOneById(
     id: string,
     updateOneUserModelDto: UpdateOneUserInputDto,

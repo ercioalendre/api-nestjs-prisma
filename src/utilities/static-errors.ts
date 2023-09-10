@@ -19,4 +19,16 @@ export class StaticErrors {
       message:
         'The user you are trying to delete related to the given id does not exist.',
     });
+
+  public static INVALID_CREDENTIALS = Object.freeze({
+    code: '2798dca7',
+    message: 'Invalid credentials.',
+  });
+
+  public static THE_USER_YOU_ARE_LOOKING_FOR_RELATED_TO_THE_GIVEN_EMAIL_DOES_NOT_EXIST =
+    Object.freeze({
+      code: 'dc2ab4ab',
+      message:
+        'The user you are looking for related to the given email does not exist.',
+    });
 }

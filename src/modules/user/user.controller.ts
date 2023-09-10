@@ -14,40 +14,18 @@ import { UpdateOneUserOutputDto } from './dto/update-one-user-output.dto';
 import { GetManyUserOutputDto } from './dto/get-many-user-output.dto';
 import { GetOneUserOutputDto } from './dto/get-one-user-output.dto';
 import { DeleteOneUserOutputDto } from './dto/delete-one-user-output.dto';
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOperation,
-  ApiTags,
-  ApiUnauthorizedResponse,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AppController } from 'src/app.controller';
+import { Public } from 'src/decorators/public.decorator';
 
 @Controller('user')
 @ApiTags('User')
-@ApiBadRequestResponse({
-  description: 'Bad Request',
-  schema: {
-    example: {
-      code: 'Error code' || null,
-      message: 'Error message.',
-      path: '/user/some-url-path',
-      dateTime: new Date(),
-    },
-  },
-})
-@ApiUnauthorizedResponse({
-  description: 'Unauthorized',
-})
-@ApiForbiddenResponse({
-  description: 'Forbidden',
-})
-@ApiNotFoundResponse({
-  description: 'Not found',
-})
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class UserController extends AppController {
+  constructor(private readonly userService: UserService) {
+    super();
+  }
 
+  @Public()
   @Post('create-one')
   @ApiOperation({
     summary: 'Creates one single user.',
