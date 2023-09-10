@@ -50,7 +50,7 @@ export class UserService {
     return user;
   }
 
-  public async updateOne(
+  public async updateOneById(
     id: string,
     updateOneUserModelDto: UpdateOneUserInputDto,
   ): Promise<UpdateOneUserOutputDto> {
@@ -68,7 +68,7 @@ export class UserService {
       ...updateOneUserModelDto,
     };
 
-    return this.userRepository.updateOne(id, userToUpdateModel);
+    return this.userRepository.updateOneById(id, userToUpdateModel);
   }
 
   public async deleteOneById(id: string): Promise<DeleteOneUserOutputDto> {

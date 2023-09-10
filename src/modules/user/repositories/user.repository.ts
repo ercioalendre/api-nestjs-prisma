@@ -30,7 +30,7 @@ export class UserRepository {
     });
   }
 
-  public async updateOne(
+  public async updateOneById(
     id: string,
     updateUserModelDto: UpdateOneUserModelDto,
   ): Promise<UpdateOneUserOutputDto> {
