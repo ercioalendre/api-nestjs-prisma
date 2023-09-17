@@ -20,7 +20,6 @@ async function bootstrap() {
     .setTitle('System API Docs')
     .setDescription('The system API documentation.')
     .setVersion('1.0')
-    // .addTag('cats')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

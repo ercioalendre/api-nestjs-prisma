@@ -7,16 +7,16 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateOneUserInputDto } from './dto/create-one-user-input.dto';
-import { UpdateOneUserInputDto } from './dto/update-one-user-input.dto';
-import { UpdateOneUserOutputDto } from './dto/update-one-user-output.dto';
-import { GetManyUserOutputDto } from './dto/get-many-user-output.dto';
-import { GetOneUserOutputDto } from './dto/get-one-user-output.dto';
-import { DeleteOneUserOutputDto } from './dto/delete-one-user-output.dto';
+import { UserService } from '@modules/user/user.service';
+import { CreateOneUserInputDto } from '@modules/user/dto/create-one-user-input.dto';
+import { UpdateOneUserInputDto } from '@modules/user/dto/update-one-user-input.dto';
+import { UpdateOneUserOutputDto } from '@modules/user/dto/update-one-user-output.dto';
+import { GetManyUserOutputDto } from '@modules/user/dto/get-many-user-output.dto';
+import { GetOneUserOutputDto } from '@modules/user/dto/get-one-user-output.dto';
+import { DeleteOneUserOutputDto } from '@modules/user/dto/delete-one-user-output.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AppController } from 'src/app.controller';
-import { Public } from 'src/decorators/public.decorator';
+import { AppController } from '@src/app.controller';
+import { Public } from '@decorators/public.decorator';
 
 @Controller('user')
 @ApiTags('User')

@@ -5,6 +5,8 @@ import { CreateOneUserModelDto } from '../dto/create-one-user-model.dto';
 import { UpdateOneUserOutputDto } from '../dto/update-one-user-output.dto';
 import { UpdateOneUserModelDto } from '../dto/update-one-user-model.dto';
 import { DeleteOneUserOutputDto } from '../dto/delete-one-user-output.dto';
+import { GetOneUserOutputDto } from '../dto/get-one-user-output.dto';
+import { GetOneAuthUserOutputDto } from '../dto/get-one-auth-user-output.dto';
 
 @Injectable()
 export class UserRepository {
@@ -41,7 +43,7 @@ export class UserRepository {
     });
   }
 
-  public async getOneById(id: string): Promise<CreateOneUserOutputDto> {
+  public async getOneById(id: string): Promise<GetOneUserOutputDto> {
     return this.prismaService.user.findUnique({
       where: {
         id,
@@ -50,7 +52,7 @@ export class UserRepository {
     });
   }
 
-  public async getOneByEmail(email: string): Promise<CreateOneUserOutputDto> {
+  public async getOneByEmail(email: string): Promise<GetOneUserOutputDto> {
     return this.prismaService.user.findUnique({
       where: {
         email,
@@ -59,7 +61,7 @@ export class UserRepository {
     });
   }
 
-  public async getOneAuth(email: string): Promise<CreateOneUserOutputDto> {
+  public async getOneAuth(email: string): Promise<GetOneAuthUserOutputDto> {
     return this.prismaService.user.findUnique({
       where: {
         email,

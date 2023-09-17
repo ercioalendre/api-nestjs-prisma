@@ -20,7 +20,13 @@ export abstract class SignInUserInputDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsStrongPassword()
+  @IsStrongPassword({
+    minLength: 6,
+    minLowercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+    minUppercase: 1,
+  })
   @MinLength(8)
   @MaxLength(64)
   @ApiProperty({

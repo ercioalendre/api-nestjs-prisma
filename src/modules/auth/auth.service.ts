@@ -4,6 +4,8 @@ import { compare } from 'bcrypt';
 import { UserRepository } from '../user/repositories/user.repository';
 import { JwtService } from '@nestjs/jwt';
 import { SignInUserInputDto } from './dto/sign-in-user-input.dto';
+import { AuthUserOutputDto } from './dto/auth-user-output.dto';
+import { AuthUserInputDto } from './dto/auth-user-input.dto';
 
 @Injectable()
 export class AuthService {
@@ -33,6 +35,7 @@ export class AuthService {
       {
         subject: user.id,
         expiresIn: '1d',
+        audience: 'signIn',
       },
     );
 
@@ -43,5 +46,17 @@ export class AuthService {
     });
 
     return { token };
+  }
+
+  public async me(
+    authUserInputDto: AuthUserInputDto,
+  ): Promise<AuthUserOutputDto> {
+    if (!authUserInputDto.id) {
+      throw new UnauthorizedException(StaticErrors.INVALID_CREDENTIALS);
+    }
+
+    const { token, password, ...authUserOutputDto } = authUserInputDto;
+
+    return authUserOutputDto;
   }
 }

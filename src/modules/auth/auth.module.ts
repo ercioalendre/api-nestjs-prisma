@@ -10,9 +10,12 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     UserModule,
     JwtModule.register({
-      global: true,
       secret: process.env.JWT_AUTH_SECRET,
+      signOptions: {
+        issuer: process.env.APP_NAME,
+      },
     }),
   ],
+  exports: [JwtModule],
 })
 export class AuthModule {}

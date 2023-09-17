@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateOneUserInputDto } from './dto/create-one-user-input.dto';
 import { UserRepository } from './repositories/user.repository';
 import { CreateOneUserOutputDto } from './dto/create-one-user-output.dto';
@@ -20,7 +24,20 @@ export class UserService {
   public async createOne(
     createOneUserInputDto: CreateOneUserInputDto,
   ): Promise<CreateOneUserOutputDto> {
-    const hashedPassword = await hash(createOneUserInputDto.password, 12);
+    const emailExists = await this.userRepository.getOneByEmail(
+      createOneUserInputDto.email,
+    );
+
+    if (emailExists) {
+      throw new ConflictException(
+        StaticErrors.THE_EMAIL_OF_THE_USER_YOU_ARE_TRYING_TO_CREATE_ALREADY_EXISTS,
+      );
+    }
+
+    const hashedPassword = await hash(
+      createOneUserInputDto.password,
+      process.env.PASSWORD_SALT,
+    );
 
     const userToCreateModel: CreateOneUserModelDto = {
       ...createOneUserInputDto,

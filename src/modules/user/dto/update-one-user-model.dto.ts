@@ -1,9 +1,9 @@
 import { Type } from '@nestjs/common';
-import { UserBaseOutputDto } from './user-base-output.dto';
+import { UpdateOneUserInputDto } from './update-one-user-input.dto';
 import { PartialType } from '@nestjs/mapped-types';
 
 export abstract class UpdateOneUserModelDto extends PartialType(
-  UserBaseOutputDto as Type<UserBaseOutputDto>,
+  UpdateOneUserInputDto as Type<UpdateOneUserInputDto>,
 ) {
   public readonly updatedAt: Date;
 

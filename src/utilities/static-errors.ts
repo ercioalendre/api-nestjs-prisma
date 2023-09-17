@@ -31,4 +31,10 @@ export class StaticErrors {
       message:
         'The user you are looking for related to the given email does not exist.',
     });
+
+  public static THE_EMAIL_OF_THE_USER_YOU_ARE_TRYING_TO_CREATE_ALREADY_EXISTS =
+    Object.freeze({
+      code: '1d06f970',
+      message: 'The email of the user you are trying to create already exists.',
+    });
 }

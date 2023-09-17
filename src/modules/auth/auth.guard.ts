@@ -40,6 +40,8 @@ export class AuthGuard implements CanActivate {
     try {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_AUTH_SECRET,
+        issuer: process.env.APP_NAME,
+        audience: 'signIn',
       });
 
       const userExists = await this.userRepository.getOneAuth(payload.email);
@@ -52,7 +54,7 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException(StaticErrors.INVALID_CREDENTIALS);
       }
 
-      request['user'] = payload;
+      request['sessionUser'] = userExists;
     } catch {
       throw new UnauthorizedException(StaticErrors.INVALID_CREDENTIALS);
     }

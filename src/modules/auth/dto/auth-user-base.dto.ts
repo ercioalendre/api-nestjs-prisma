@@ -1,4 +1,4 @@
-export abstract class UserBaseOutputDto {
+export abstract class AuthUserBaseDto {
   public readonly id: string;
   public readonly fullName: string;
   public readonly nickname?: string | null;
